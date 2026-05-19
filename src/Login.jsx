@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 
 function Login({ onLogin, onCancel }) {
   const [email, setEmail] = useState("");
@@ -98,7 +98,7 @@ function Login({ onLogin, onCancel }) {
             letterSpacing: "1px",
             color: "#FFFFFF",
           }}>
-            TO MANGLAA
+            TO MANGLA
           </h1>
           <p style={{
             margin: "8px 0 0",

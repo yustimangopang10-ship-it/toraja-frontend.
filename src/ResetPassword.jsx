@@ -128,7 +128,7 @@ function ResetPassword() {
             letterSpacing: "1px",
             color: "#FFFFFF",
           }}>
-            TO MANGLAA
+            TO MANGLA
           </h1>
           <p style={{
             margin: "8px 0 0",

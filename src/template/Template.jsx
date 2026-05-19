@@ -852,7 +852,7 @@ const CartSidebar = () => {
             <a className="navbar-brand d-flex align-items-center" href="#" onClick={() => setCurrentPage("home")}>
               <img src={logo} alt="Logo" style={{ height: "38px", marginRight: "10px", borderRadius: "50%" }} />
               <div>
-                <span style={{ fontWeight: "600", fontSize: "16px", letterSpacing: "1px", color: "#1A1A1A" }}>TO MANGLAA</span>
+                <span style={{ fontWeight: "600", fontSize: "16px", letterSpacing: "1px", color: "#1A1A1A" }}>TO MANGLA</span>
                 <span style={{ fontSize: "9px", display: "block", color: "#D4AF37", letterSpacing: "2px" }}>TORAJA CLOTHING</span>
               </div>
             </a>
@@ -918,7 +918,7 @@ const CartSidebar = () => {
           <div className="hero-content">
             <img src={logo} alt="Logo" className="hero-logo" />
             <h1 className="hero-title">TORAJA CLOTHING</h1>
-            <p className="hero-subtitle">TO MANGLAA COLLECTION</p>
+            <p className="hero-subtitle">TO MANGLA COLLECTION</p>
             <p className="hero-description">
               Mengangkat keindahan budaya Toraja ke dalam fashion modern.<br />
               Setiap karya adalah perpaduan tradisi dan gaya kontemporer.
@@ -941,7 +941,7 @@ const CartSidebar = () => {
                 </h2>
                 <div className="divider-gold" style={{ margin: "0 0 24px 0" }}></div>
                 <p style={{ color: "#666666", lineHeight: "1.7", marginBottom: "20px", fontSize: "15px" }}>
-                  TO Manglaa x TORAJA CLOTHING adalah brand fashion yang mengusung kearifan lokal Toraja dengan sentuhan modern.
+                  TO Mangla x TORAJA CLOTHING adalah brand fashion yang mengusung kearifan lokal Toraja dengan sentuhan modern.
                 </p>
                 <p style={{ color: "#666666", lineHeight: "1.7", fontSize: "15px" }}>
                   Kami percaya bahwa fashion bukan hanya tentang penampilan, tapi juga tentang bagaimana Anda menceritakan siapa diri Anda.
@@ -1057,7 +1057,7 @@ const CartSidebar = () => {
               <a href="https://www.tiktok.com/@to_manglaa" target="_blank" style={{ color: "#999999", margin: "0 12px", fontSize: "20px", textDecoration: "none" }}>🎵</a>
               <a href="https://wa.me/6285397853625" target="_blank" style={{ color: "#999999", margin: "0 12px", fontSize: "18px", textDecoration: "none" }}>💬</a>
             </div>
-            <p className="text-center" style={{ color: "#AAAAAA", fontSize: "12px", marginBottom: "4px" }}>© 2024 TO Manglaa x TORAJA CLOTHING</p>
+            <p className="text-center" style={{ color: "#AAAAAA", fontSize: "12px", marginBottom: "4px" }}>© 2024 TO Mangla x TORAJA CLOTHING</p>
             <p className="text-center" style={{ color: "#BBBBBB", fontSize: "10px" }}>Mengangkat Budaya Toraja dalam setiap karya</p>
           </div>
         </footer>
@@ -1083,7 +1083,7 @@ const CartSidebar = () => {
           <div className="container">
             <a className="navbar-brand d-flex align-items-center" href="#" onClick={() => setCurrentPage("home")}>
               <img src={logo} alt="Logo" style={{ height: "38px", marginRight: "10px", borderRadius: "50%" }} />
-              <div><span style={{ fontWeight: "600", fontSize: "16px", color: "#1A1A1A" }}>TO MANGLAA</span><span style={{ fontSize: "9px", display: "block", color: "#D4AF37" }}>TORAJA CLOTHING</span></div>
+              <div><span style={{ fontWeight: "600", fontSize: "16px", color: "#1A1A1A" }}>TO MANGLA</span><span style={{ fontSize: "9px", display: "block", color: "#D4AF37" }}>TORAJA CLOTHING</span></div>
             </a>
             <button className="btn" style={{ background: "transparent", border: "1.5px solid #1A1A1A", color: "#1A1A1A", borderRadius: "30px", padding: "6px 18px", fontSize: "13px" }} onClick={() => setCurrentPage("home")}>← KEMBALI</button>
           </div>
@@ -1144,7 +1144,7 @@ const CartSidebar = () => {
           <div className="container">
             <a className="navbar-brand d-flex align-items-center" href="#" onClick={(e) => { e.preventDefault(); setCurrentPage("home"); }}>
               <img src={logo} alt="Logo" style={{ height: "38px", marginRight: "10px", borderRadius: "50%" }} />
-              <div><span style={{ fontWeight: "600", fontSize: "16px", color: "#1A1A1A" }}>TO MANGLAA</span><span style={{ fontSize: "9px", display: "block", color: "#D4AF37" }}>TORAJA CLOTHING</span></div>
+              <div><span style={{ fontWeight: "600", fontSize: "16px", color: "#1A1A1A" }}>TO MANGLA</span><span style={{ fontSize: "9px", display: "block", color: "#D4AF37" }}>TORAJA CLOTHING</span></div>
             </a>
             <button className="btn" style={{ background: "transparent", border: "1.5px solid #1A1A1A", color: "#1A1A1A", borderRadius: "30px", padding: "6px 18px", fontSize: "13px" }} onClick={() => setCurrentPage("home")}>← KEMBALI</button>
           </div>
@@ -1230,7 +1230,7 @@ const CartSidebar = () => {
             <a className="navbar-brand d-flex align-items-center" href="#" onClick={() => setCurrentPage("home")}>
               <img src={logo} alt="Logo" style={{ height: "38px", marginRight: "10px", borderRadius: "50%" }} />
               <div>
-                <span style={{ fontWeight: "600", fontSize: "16px", letterSpacing: "1px", color: "#1A1A1A" }}>TO MANGLAA</span>
+                <span style={{ fontWeight: "600", fontSize: "16px", letterSpacing: "1px", color: "#1A1A1A" }}>TO MANGLA</span>
                 <span style={{ fontSize: "9px", display: "block", color: "#D4AF37", letterSpacing: "2px" }}>TORAJA CLOTHING</span>
               </div>
             </a>

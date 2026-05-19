@@ -36,7 +36,7 @@ function CartPage({ cart, updateQuantity, removeFromCart, total, user, onCheckou
           <div className="container">
             <Link className="navbar-brand d-flex align-items-center" to="/">
               <div>
-                <span style={{ fontWeight: "600", fontSize: "16px", letterSpacing: "1px", color: "#1A1A1A" }}>TO MANGLAA</span>
+                <span style={{ fontWeight: "600", fontSize: "16px", letterSpacing: "1px", color: "#1A1A1A" }}>TO MANGLA</span>
                 <span style={{ fontSize: "9px", display: "block", color: "#D4AF37", letterSpacing: "2px" }}>TORAJA CLOTHING</span>
               </div>
             </Link>
@@ -60,7 +60,7 @@ function CartPage({ cart, updateQuantity, removeFromCart, total, user, onCheckou
         <div className="container">
           <Link className="navbar-brand d-flex align-items-center" to="/">
             <div>
-              <span style={{ fontWeight: "600", fontSize: "16px", letterSpacing: "1px", color: "#1A1A1A" }}>TO MANGLAA</span>
+              <span style={{ fontWeight: "600", fontSize: "16px", letterSpacing: "1px", color: "#1A1A1A" }}>TO MANGLA</span>
               <span style={{ fontSize: "9px", display: "block", color: "#D4AF37", letterSpacing: "2px" }}>TORAJA CLOTHING</span>
             </div>
           </Link>

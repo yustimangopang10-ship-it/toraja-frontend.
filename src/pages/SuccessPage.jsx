@@ -28,7 +28,7 @@ function SuccessPage() {
         <div className="container">
           <Link className="navbar-brand d-flex align-items-center" to="/">
             <div>
-              <span style={{ fontWeight: "600", fontSize: "16px", letterSpacing: "1px", color: "#1A1A1A" }}>TO MANGLAA</span>
+              <span style={{ fontWeight: "600", fontSize: "16px", letterSpacing: "1px", color: "#1A1A1A" }}>TO MANGLA</span>
               <span style={{ fontSize: "9px", display: "block", color: "#D4AF37", letterSpacing: "2px" }}>TORAJA CLOTHING</span>
             </div>
           </Link>
@@ -56,7 +56,7 @@ function SuccessPage() {
 
       <footer style={{ background: "#FAFAFA", padding: "40px 0 24px", borderTop: "1px solid #EEEEEE", marginTop: "40px" }}>
         <div className="container">
-          <p className="text-center" style={{ color: "#AAAAAA", fontSize: "12px", marginBottom: "4px" }}>© 2024 TO Manglaa x TORAJA CLOTHING</p>
+          <p className="text-center" style={{ color: "#AAAAAA", fontSize: "12px", marginBottom: "4px" }}>© 2024 TO Mangla x TORAJA CLOTHING</p>
           <p className="text-center" style={{ color: "#BBBBBB", fontSize: "10px" }}>Mengangkat Budaya Toraja dalam setiap karya</p>
         </div>
       </footer>

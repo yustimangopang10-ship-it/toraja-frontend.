@@ -22,17 +22,17 @@ function CheckoutPage({ cart, total, proceedCheckout, user }) {
     bca: {
       name: "BCA",
       accountNumber: "1234567890",
-      accountName: "TO Manglaa x TORAJA CLOTHING"
+      accountName: "TO Mangla x TORAJA CLOTHING"
     },
     mandiri: {
       name: "Mandiri",
       accountNumber: "9876543210",
-      accountName: "TO Manglaa x TORAJA CLOTHING"
+      accountName: "TO Mangla x TORAJA CLOTHING"
     },
     bri: {
       name: "BRI",
       accountNumber: "5555555555",
-      accountName: "TO Manglaa x TORAJA CLOTHING"
+      accountName: "TO Mangla x TORAJA CLOTHING"
     }
   };
 
@@ -81,7 +81,7 @@ function CheckoutPage({ cart, total, proceedCheckout, user }) {
           <div className="container">
             <Link className="navbar-brand d-flex align-items-center" to="/">
               <div>
-                <span style={{ fontWeight: "600", fontSize: "16px", letterSpacing: "1px", color: "#1A1A1A" }}>TO MANGLAA</span>
+                <span style={{ fontWeight: "600", fontSize: "16px", letterSpacing: "1px", color: "#1A1A1A" }}>TO MANGLA</span>
                 <span style={{ fontSize: "9px", display: "block", color: "#D4AF37", letterSpacing: "2px" }}>TORAJA CLOTHING</span>
               </div>
             </Link>
@@ -103,7 +103,7 @@ function CheckoutPage({ cart, total, proceedCheckout, user }) {
         <div className="container">
           <Link className="navbar-brand d-flex align-items-center" to="/">
             <div>
-              <span style={{ fontWeight: "600", fontSize: "16px", letterSpacing: "1px", color: "#1A1A1A" }}>TO MANGLAA</span>
+              <span style={{ fontWeight: "600", fontSize: "16px", letterSpacing: "1px", color: "#1A1A1A" }}>TO MANGLA</span>
               <span style={{ fontSize: "9px", display: "block", color: "#D4AF37", letterSpacing: "2px" }}>TORAJA CLOTHING</span>
             </div>
           </Link>
