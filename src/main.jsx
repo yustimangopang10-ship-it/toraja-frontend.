@@ -16,7 +16,7 @@ library.add(fas, far, fab);
 const originalFetch = window.fetch;
 window.fetch = function (input, init) {
   if (typeof input === "string" && input.startsWith("http://localhost:5000")) {
-    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+    const API_URL = import.meta.env.VITE_API_URL || "https://toraja-backend.vercel.app";
     input = input.replace("http://localhost:5000", API_URL);
   }
   return originalFetch(input, init);

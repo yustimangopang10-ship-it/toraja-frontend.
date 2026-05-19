@@ -6,7 +6,7 @@ import SettingsPage from "../pages/SettingsPage";
 const getImageUrl = (image) => {
   if (!image) return "";
   if (image.startsWith("http")) return image;
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const API_URL = import.meta.env.VITE_API_URL || "https://toraja-backend.vercel.app";
   return `${API_URL}${image}`;
 };
 
@@ -357,7 +357,7 @@ function Template({
       });
       if (res.ok) {
         alert("✅ Role user berhasil diubah!");
-        setUsers(users.map(u => u.id === userId ? { ...u, role: newRole } : u));
+        setUsers(users.map(u => String(u.id) === String(userId) ? { ...u, role: newRole } : u));
         setEditingRoleUser(null);
       } else { alert("Gagal mengubah role"); }
     } catch (err) { console.error(err); }
@@ -373,7 +373,7 @@ function Template({
       });
       if (res.ok) {
         alert("✅ User berhasil dihapus!");
-        setUsers(users.filter(u => u.id !== userId));
+        setUsers(users.filter(u => String(u.id) !== String(userId)));
       } else { alert("Gagal menghapus user"); }
     } catch (err) { console.error(err); }
   };
@@ -1587,23 +1587,23 @@ const CartSidebar = () => {
                             <td style={{ padding: "10px 16px", color: "#1A1A1A", fontSize: "13px" }}>{u.email}</td>
                             <td style={{ padding: "10px 16px" }}>{u.role === "admin" ? <span style={{ background: "#D4AF37", padding: "4px 12px", borderRadius: "30px", fontSize: "11px", color: "#1A1A1A", fontWeight: "500" }}>Admin</span> : <span style={{ background: "#EEEEEE", padding: "4px 12px", borderRadius: "30px", fontSize: "11px", color: "#666666" }}>User</span>}</td>
                             <td style={{ padding: "10px 16px" }}>
-                              {u.id !== user?.id && (
+                              {String(u.id) !== String(user?.id) && (
                                 <>
-                                  {editingRoleUser === u.id ? (
+                                  {editingRoleUser !== null && String(editingRoleUser) === String(u.id) ? (
                                     <select className="form-select form-select-sm d-inline w-auto" style={{ width: "auto", background: "#FFFFFF", border: "1px solid #D4AF37", borderRadius: "20px", padding: "4px 10px", fontSize: "12px" }} value={u.role} onChange={(e) => handleChangeUserRole(u.id, e.target.value)}>
                                       <option value="user">User</option>
                                       <option value="admin">Admin</option>
                                     </select>
                                   ) : (
-                                    <button className="btn btn-sm" style={{ background: "#ffc107", border: "none", color: "#1A1A1A", padding: "4px 12px", borderRadius: "20px", fontSize: "11px", marginRight: "6px" }} onClick={() => setEditingRoleUser(u.id)}>Ubah Role</button>
+                                    <button type="button" className="btn btn-sm" style={{ background: "#ffc107", border: "none", color: "#1A1A1A", padding: "4px 12px", borderRadius: "20px", fontSize: "11px", marginRight: "6px" }} onClick={() => setEditingRoleUser(u.id)}>Ubah Role</button>
                                   )}
-                                  {editingRoleUser === u.id && (
-                                    <button className="btn btn-sm" style={{ background: "#6c757d", border: "none", color: "white", padding: "4px 12px", borderRadius: "20px", fontSize: "11px", marginRight: "6px" }} onClick={() => setEditingRoleUser(null)}>Batal</button>
+                                  {editingRoleUser !== null && String(editingRoleUser) === String(u.id) && (
+                                    <button type="button" className="btn btn-sm" style={{ background: "#6c757d", border: "none", color: "white", padding: "4px 12px", borderRadius: "20px", fontSize: "11px", marginRight: "6px" }} onClick={() => setEditingRoleUser(null)}>Batal</button>
                                   )}
-                                  <button className="btn btn-sm" style={{ background: "#dc3545", border: "none", color: "white", padding: "4px 12px", borderRadius: "20px", fontSize: "11px" }} onClick={() => handleDeleteUser(u.id)}>Hapus</button>
+                                  <button type="button" className="btn btn-sm" style={{ background: "#dc3545", border: "none", color: "white", padding: "4px 12px", borderRadius: "20px", fontSize: "11px" }} onClick={() => handleDeleteUser(u.id)}>Hapus</button>
                                 </>
                               )}
-                              {u.id === user?.id && <span className="text-muted" style={{ color: "#999999", fontSize: "12px" }}>(Anda)</span>}
+                              {String(u.id) === String(user?.id) && <span className="text-muted" style={{ color: "#999999", fontSize: "12px" }}>(Anda)</span>}
                             </td>
                           </tr>
                         ))}

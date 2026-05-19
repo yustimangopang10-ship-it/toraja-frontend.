@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 const getImageUrl = (image) => {
   if (!image) return "";
   if (image.startsWith("http")) return image;
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const API_URL = import.meta.env.VITE_API_URL || "https://toraja-backend.vercel.app";
   return `${API_URL}${image}`;
 };
 
