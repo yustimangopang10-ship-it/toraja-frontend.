@@ -1180,6 +1180,51 @@ const CartSidebar = () => {
   if (currentPage === "admin" && isAdmin) {
     return (
       <>
+        <style>{`
+          .admin-layout {
+            display: flex;
+            min-height: 100vh;
+            margin-top: 70px;
+            background: #F5F5F5;
+            flex-direction: row;
+          }
+          .admin-sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
+            min-height: 100vh;
+            color: #FFFFFF;
+            position: fixed;
+            left: 0;
+            top: 70px;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 100;
+            transition: all 0.3s ease;
+          }
+          .admin-content {
+            margin-left: 280px;
+            padding: 30px;
+            width: calc(100% - 280px);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+          }
+          @media (max-width: 991px) {
+            .admin-layout {
+              flex-direction: column !important;
+            }
+            .admin-sidebar {
+              width: 100% !important;
+              min-height: auto !important;
+              position: static !important;
+              padding-bottom: 20px;
+            }
+            .admin-content {
+              margin-left: 0 !important;
+              width: 100% !important;
+              padding: 15px !important;
+            }
+          }
+        `}</style>
         <nav className="navbar navbar-expand-lg fixed-top" style={{ background: "rgba(255, 255, 255, 0.98)", backdropFilter: "blur(10px)", borderBottom: "1px solid #EEEEEE", padding: "14px 0" }}>
           <div className="container">
             <a className="navbar-brand d-flex align-items-center" href="#" onClick={() => setCurrentPage("home")}>
