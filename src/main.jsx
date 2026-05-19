@@ -4,6 +4,14 @@ import App from "./App";
 import "./index.css";           // ← GANTI JADI INI (bukan bootstrap-custom.css)
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// Konfigurasi FontAwesome secara global
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+
+library.add(fas, far, fab);
+
 // Global fetch hook to rewrite localhost:5000 to the hosted API URL
 const originalFetch = window.fetch;
 window.fetch = function (input, init) {
