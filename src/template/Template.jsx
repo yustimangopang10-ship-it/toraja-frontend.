@@ -360,7 +360,10 @@ function Template({
         setUsers(users.map(u => String(u.id) === String(userId) ? { ...u, role: newRole } : u));
         setEditingRoleUser(null);
       } else { alert("Gagal mengubah role"); }
-    } catch (err) { console.error(err); }
+    } catch (err) {
+      alert("❌ Error: " + err.message);
+      console.error(err);
+    }
   };
   
   const handleDeleteUser = async (userId) => {
@@ -375,7 +378,10 @@ function Template({
         alert("✅ User berhasil dihapus!");
         setUsers(users.filter(u => String(u.id) !== String(userId)));
       } else { alert("Gagal menghapus user"); }
-    } catch (err) { console.error(err); }
+    } catch (err) {
+      alert("❌ Error: " + err.message);
+      console.error(err);
+    }
   };
 
   // Order Management
