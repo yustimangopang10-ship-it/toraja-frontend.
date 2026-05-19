@@ -173,7 +173,7 @@ function ProductDetailPage({ addToCart, cart }) {
                   src={getImageUrl(product.image)} 
                   className="card-img-top" 
                   alt={product.name}
-                  style={{ width: "100%", height: "500px", objectFit: "cover" }}
+                  style={{ width: "100%", height: "auto", maxHeight: "500px", aspectRatio: "1/1", objectFit: "cover" }}
                 />
               ) : (
                 <div 

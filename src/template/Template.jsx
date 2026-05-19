@@ -437,7 +437,8 @@ const CartSidebar = () => {
       position: "fixed",
       top: 0,
       right: 0,
-      width: "400px",
+      width: "100%",
+      maxWidth: "400px",
       height: "100vh",
       background: "white",
       boxShadow: "-2px 0 8px rgba(0,0,0,0.1)",
@@ -799,6 +800,49 @@ const CartSidebar = () => {
             .hero-title { font-size: 32px; }
             .hero-subtitle { font-size: 16px; }
           }
+          .admin-layout {
+            display: flex;
+            min-height: 100vh;
+            margin-top: 70px;
+            background: #F5F5F5;
+            flex-direction: row;
+          }
+          .admin-sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
+            min-height: 100vh;
+            color: #FFFFFF;
+            position: fixed;
+            left: 0;
+            top: 70px;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 100;
+            transition: all 0.3s ease;
+          }
+          .admin-content {
+            margin-left: 280px;
+            padding: 30px;
+            width: calc(100% - 280px);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+          }
+          @media (max-width: 991px) {
+            .admin-layout {
+              flex-direction: column !important;
+            }
+            .admin-sidebar {
+              width: 100% !important;
+              min-height: auto !important;
+              position: static !important;
+              padding-bottom: 20px;
+            }
+            .admin-content {
+              margin-left: 0 !important;
+              width: 100% !important;
+              padding: 15px !important;
+            }
+          }
         `}</style>
 
         {/* NAVBAR */}
@@ -1157,20 +1201,9 @@ const CartSidebar = () => {
         </nav>
 
         {/* LAYOUT ADMIN DENGAN SIDEBAR */}
-        <div style={{ display: "flex", minHeight: "100vh", marginTop: "70px", background: "#F5F5F5" }}>
+        <div className="admin-layout">
           {/* SIDEBAR KIRI */}
-          <div style={{
-            width: "280px",
-            background: "linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%)",
-            minHeight: "100vh",
-            color: "#FFFFFF",
-            position: "fixed",
-            left: 0,
-            top: 70,
-            bottom: 0,
-            overflowY: "auto",
-            zIndex: 100,
-          }}>
+          <div className="admin-sidebar">
             <div style={{ padding: "30px 20px" }}>
               <div style={{ textAlign: "center", marginBottom: "30px", borderBottom: "1px solid rgba(212,175,55,0.3)", paddingBottom: "20px" }}>
                 <h3 style={{ margin: 0, color: "#D4AF37", fontSize: "20px" }}>ADMIN PANEL</h3>
@@ -1322,12 +1355,7 @@ const CartSidebar = () => {
           </div>
 
           {/* KONTEN UTAMA */}
-          <div style={{
-            marginLeft: "280px",
-            padding: "30px",
-            width: "calc(100% - 280px)",
-            minHeight: "100vh",
-          }}>
+          <div className="admin-content">
             {/* DASHBOARD */}
             {adminTab === "dashboard" && (
               <div>
