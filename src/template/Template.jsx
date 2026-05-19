@@ -59,6 +59,7 @@ function Template({
   
   // State untuk sidebar cart
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
   const isAdmin = user?.role === "admin";
 
@@ -855,15 +856,15 @@ const CartSidebar = () => {
                 <span style={{ fontSize: "9px", display: "block", color: "#D4AF37", letterSpacing: "2px" }}>TORAJA CLOTHING</span>
               </div>
             </a>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button className="navbar-toggler" type="button" onClick={() => setIsNavbarOpen(!isNavbarOpen)}>
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="collapse navbar-collapse" id="navbarNav">
+            <div className={`collapse navbar-collapse ${isNavbarOpen ? "show" : ""}`} id="navbarNav">
               <ul className="navbar-nav ms-auto align-items-center">
-                <li className="nav-item"><a className="nav-link" href="#" onClick={() => setCurrentPage("home")}>BERANDA</a></li>
-                <li className="nav-item"><a className="nav-link" href="#" onClick={() => setCurrentPage("terms")}>SYARAT</a></li>
-                <li className="nav-item"><a className="nav-link" href="#" onClick={() => setCurrentPage("myorders")}>PESANANKU</a></li>
-                {isAdmin && <li className="nav-item"><a className="nav-link" href="#" onClick={() => setCurrentPage("admin")}>ADMIN</a></li>}
+                <li className="nav-item"><a className="nav-link" href="#" onClick={() => { setCurrentPage("home"); setIsNavbarOpen(false); }}>BERANDA</a></li>
+                <li className="nav-item"><a className="nav-link" href="#" onClick={() => { setCurrentPage("terms"); setIsNavbarOpen(false); }}>SYARAT</a></li>
+                <li className="nav-item"><a className="nav-link" href="#" onClick={() => { setCurrentPage("myorders"); setIsNavbarOpen(false); }}>PESANANKU</a></li>
+                {isAdmin && <li className="nav-item"><a className="nav-link" href="#" onClick={() => { setCurrentPage("admin"); setIsNavbarOpen(false); }}>ADMIN</a></li>}
                 <li className="nav-item"><span className="nav-link" style={{ color: "#D4AF37" }}>👋 {user?.name}{isAdmin && "👑"}</span></li>
                 <li className="nav-item">
                   <button 
@@ -1188,13 +1189,13 @@ const CartSidebar = () => {
                 <span style={{ fontSize: "9px", display: "block", color: "#D4AF37", letterSpacing: "2px" }}>TORAJA CLOTHING</span>
               </div>
             </a>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button className="navbar-toggler" type="button" onClick={() => setIsNavbarOpen(!isNavbarOpen)}>
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="collapse navbar-collapse" id="navbarNav">
+            <div className={`collapse navbar-collapse ${isNavbarOpen ? "show" : ""}`} id="navbarNav">
               <ul className="navbar-nav ms-auto align-items-center">
                 <li className="nav-item"><span className="nav-link" style={{ color: "#D4AF37" }}>👋 {user?.name}{isAdmin && "👑"}</span></li>
-                <li className="nav-item"><button className="btn ms-2" style={{ background: "#1A1A1A", border: "none", color: "white", borderRadius: "30px", padding: "6px 20px", fontSize: "13px" }} onClick={() => setCurrentPage("home")}>← HOME</button></li>
+                <li className="nav-item"><button className="btn ms-2" style={{ background: "#1A1A1A", border: "none", color: "white", borderRadius: "30px", padding: "6px 20px", fontSize: "13px" }} onClick={() => { setCurrentPage("home"); setIsNavbarOpen(false); }}>← HOME</button></li>
               </ul>
             </div>
           </div>
