@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL || "https://toraja-backend.vercel.app";
+
 function Login({ onLogin, onCancel }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,8 +16,8 @@ function Login({ onLogin, onCancel }) {
     setError("");
 
     const url = isRegister
-      ? "http://localhost:5000/auth/register"
-      : "http://localhost:5000/auth/login";
+      ? `${API_URL}/auth/register`
+      : `${API_URL}/auth/login`;
 
     const payload = isRegister
       ? { name, email, password }
@@ -55,7 +57,7 @@ function Login({ onLogin, onCancel }) {
   const handleForgotPassword = () => {
     const emailInput = prompt("Masukkan email Anda:");
     if (emailInput && emailInput.trim() !== "") {
-      fetch("http://localhost:5000/forgot-password", {
+      fetch(`${API_URL}/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: emailInput })

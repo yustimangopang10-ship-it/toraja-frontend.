@@ -1,5 +1,7 @@
 // frontend/src/template/TermsPage.jsx
 import { useState, useEffect } from "react";
+
+const API_URL = import.meta.env.VITE_API_URL || "https://toraja-backend.vercel.app";
 import ScrollToTopOnMount from "./ScrollToTopOnMount";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -12,7 +14,7 @@ function TermsPage() {
     const fetchTerms = async () => {
       try {
         setLoading(true);
-        const res = await fetch("http://localhost:5000/api/terms");
+        const res = await fetch(`${API_URL}/api/terms`);
         const data = await res.json();
         setTerms(data);
         
@@ -32,7 +34,7 @@ function TermsPage() {
     try {
       const token = localStorage.getItem("token");
       
-      const res = await fetch(`http://localhost:5000/api/terms/${termId}/agree`, {
+      const res = await fetch(`${API_URL}/api/terms/${termId}/agree`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

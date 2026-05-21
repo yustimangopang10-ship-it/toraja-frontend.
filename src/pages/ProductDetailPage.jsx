@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.jpeg";
+const API_URL = import.meta.env.VITE_API_URL || "https://toraja-backend.vercel.app";
+
 const getImageUrl = (image) => {
   if (!image) return "";
   if (image.startsWith("http")) return image;
-  const API_URL = import.meta.env.VITE_API_URL || "https://toraja-backend.vercel.app";
   return `${API_URL}${image}`;
 };
 
@@ -23,7 +24,7 @@ function ProductDetailPage({ addToCart, cart }) {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`http://localhost:5000/products/${id}`);
+        const res = await fetch(`${API_URL}/products/${id}`);
         const data = await res.json();
         setProduct(data);
         
@@ -40,7 +41,7 @@ function ProductDetailPage({ addToCart, cart }) {
           }
         }
         
-        const allRes = await fetch("http://localhost:5000/products");
+        const allRes = await fetch(`${API_URL}/products`);
         const allData = await allRes.json();
         setRelatedProducts(allData.filter(p => p.id !== parseInt(id)).slice(0, 4));
       } catch (err) {

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_API_URL || "https://toraja-backend.vercel.app";
+
 function ResetPassword() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
@@ -22,7 +24,7 @@ function ResetPassword() {
     
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/reset-password", {
+      const res = await fetch(`${API_URL}/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, newPassword })

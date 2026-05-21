@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL || "https://toraja-backend.vercel.app";
+
 function SettingsPage() {
   const [settings, setSettings] = useState({});
   const [loading, setLoading] = useState(false);
@@ -11,7 +13,7 @@ function SettingsPage() {
 
   const fetchSettings = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/settings");
+      const res = await fetch(`${API_URL}/api/settings`);
       const data = await res.json();
       const settingsMap = {};
       data.forEach(s => { settingsMap[s.key] = s.value; });
@@ -30,7 +32,7 @@ function SettingsPage() {
     for (const key of keys) {
       const value = document.getElementById(key)?.value || "";
       try {
-        await fetch(`http://localhost:5000/api/admin/settings/${key}`, {
+        await fetch(`${API_URL}/api/admin/settings/${key}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

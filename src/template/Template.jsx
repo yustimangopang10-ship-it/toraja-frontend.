@@ -24,6 +24,7 @@ function Template({
   updateSize,        // ← TAMBAHKAN
   productSizes       // ← TAMBAHKAN
 }) {
+  const API_URL = import.meta.env.VITE_API_URL || "https://toraja-backend.vercel.app";
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState("home");
   const [myOrders, setMyOrders] = useState([]);
@@ -77,7 +78,7 @@ function Template({
           console.log("Token:", token);
           console.log("User:", user);
           
-          const res = await fetch("http://localhost:5000/api/orders/my-orders", {
+          const res = await fetch(`${API_URL}/api/orders/my-orders`, {
             headers: { Authorization: "Bearer " + token }
           });
           
@@ -108,52 +109,71 @@ function Template({
     if (isAdmin && currentPage === "admin") {
       const fetchAdminProducts = async () => {
         try {
-          const res = await fetch("http://localhost:5000/products");
+          const res = await fetch(`${API_URL}/products`);
           const data = await res.json();
-          setAdminProducts(data);
-        } catch (err) { console.error(err); }
+          if (Array.isArray(data)) {
+            setAdminProducts(data);
+          } else {
+            console.error("❌ Products bukan array:", data);
+            setAdminProducts([]);
+          }
+        } catch (err) { console.error("❌ Fetch products error:", err); setAdminProducts([]); }
       };
       
       const fetchUsers = async () => {
         try {
           const token = localStorage.getItem("token");
-          const res = await fetch("http://localhost:5000/api/admin/users", {
+          const res = await fetch(`${API_URL}/api/admin/users`, {
             headers: { Authorization: "Bearer " + token }
           });
           const data = await res.json();
-          setUsers(data);
-          setDashboard(prev => ({ ...prev, totalUsers: data.length }));
-        } catch (err) { console.error(err); }
+          if (Array.isArray(data)) {
+            setUsers(data);
+            setDashboard(prev => ({ ...prev, totalUsers: data.length }));
+          } else {
+            console.error("❌ Users bukan array:", data);
+            setUsers([]);
+          }
+        } catch (err) { console.error("❌ Fetch users error:", err); setUsers([]); }
       };
       
       const fetchOrders = async () => {
         try {
           const token = localStorage.getItem("token");
-          const res = await fetch("http://localhost:5000/api/admin/orders", {
+          const res = await fetch(`${API_URL}/api/admin/orders`, {
             headers: { Authorization: "Bearer " + token }
           });
           const data = await res.json();
-          setOrders(data);
-          
-          let revenue = 0;
-          data.forEach(o => { if (o.status === "delivered") revenue += o.total; });
-          setDashboard(prev => ({
-            ...prev,
-            totalOrders: data.length,
-            totalRevenue: revenue
-          }));
-        } catch (err) { console.error(err); }
+          if (Array.isArray(data)) {
+            setOrders(data);
+            let revenue = 0;
+            data.forEach(o => { if (o.status === "delivered") revenue += o.total; });
+            setDashboard(prev => ({
+              ...prev,
+              totalOrders: data.length,
+              totalRevenue: revenue
+            }));
+          } else {
+            console.error("❌ Orders bukan array:", data);
+            setOrders([]);
+          }
+        } catch (err) { console.error("❌ Fetch orders error:", err); setOrders([]); }
       };
       
       const fetchTerms = async () => {
         try {
           const token = localStorage.getItem("token");
-          const res = await fetch("http://localhost:5000/api/admin/terms", {
+          const res = await fetch(`${API_URL}/api/admin/terms`, {
             headers: { Authorization: "Bearer " + token }
           });
           const data = await res.json();
-          setAdminTerms(data);
-        } catch (err) { console.error(err); }
+          if (Array.isArray(data)) {
+            setAdminTerms(data);
+          } else {
+            console.error("❌ Terms bukan array:", data);
+            setAdminTerms([]);
+          }
+        } catch (err) { console.error("❌ Fetch terms error:", err); setAdminTerms([]); }
       };
       
       fetchAdminProducts();
@@ -168,7 +188,7 @@ function Template({
     if (currentPage === "terms") {
       const fetchTerms = async () => {
         try {
-          const res = await fetch("http://localhost:5000/api/terms");
+          const res = await fetch(`${API_URL}/api/terms`);
           const data = await res.json();
           console.log("📦 Terms untuk user:", data);
           setAdminTerms(data);
@@ -210,7 +230,7 @@ function Template({
     formDataObj.append("description", formData.description);
     if (imageFile) formDataObj.append("image", imageFile);
     try {
-      const res = await fetch("http://localhost:5000/products", {
+      const res = await fetch(`${API_URL}/products`, {
         method: "POST",
         headers: { Authorization: "Bearer " + token },
         body: formDataObj
@@ -220,11 +240,17 @@ function Template({
         setShowAddForm(false);
         setFormData({ name: "", price: "", description: "" });
         setImageFile(null);
-        const fetchRes = await fetch("http://localhost:5000/products");
+        const fetchRes = await fetch(`${API_URL}/products`);
         const data = await fetchRes.json();
         setAdminProducts(data);
-      } else { alert("Gagal menambahkan produk"); }
-    } catch (err) { console.error(err); }
+      } else {
+        const errorData = await res.json().catch(() => ({}));
+        alert(`❌ Gagal menambahkan produk: ${errorData.error || errorData.message || 'Unknown Error'}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert(`❌ Error: ${err.message}`);
+    }
   };
   
   const handleEditProduct = async (e) => {
@@ -236,7 +262,7 @@ function Template({
     formDataObj.append("description", formData.description);
     if (imageFile) formDataObj.append("image", imageFile);
     try {
-      const res = await fetch(`http://localhost:5000/products/${editingProduct.id}`, {
+      const res = await fetch(`${API_URL}/products/${editingProduct.id}`, {
         method: "PUT",
         headers: { Authorization: "Bearer " + token },
         body: formDataObj
@@ -246,10 +272,13 @@ function Template({
         setEditingProduct(null);
         setFormData({ name: "", price: "", description: "" });
         setImageFile(null);
-        const fetchRes = await fetch("http://localhost:5000/products");
+        const fetchRes = await fetch(`${API_URL}/products`);
         const data = await fetchRes.json();
         setAdminProducts(data);
-      } else { alert("Gagal mengupdate produk"); }
+      } else {
+        const errData = await res.json().catch(() => ({}));
+        alert(`❌ Gagal mengupdate produk: ${errData.error || errData.message || res.status}`);
+      }
     } catch (err) { console.error(err); }
   };
   
@@ -257,7 +286,7 @@ function Template({
     if (!confirm("Yakin ingin menghapus produk ini?")) return;
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch(`http://localhost:5000/products/${id}`, {
+      const res = await fetch(`${API_URL}/products/${id}`, {
         method: "DELETE",
         headers: { Authorization: "Bearer " + token },
       });
@@ -287,7 +316,7 @@ function Template({
     e.preventDefault();
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch("http://localhost:5000/api/admin/terms", {
+      const res = await fetch(`${API_URL}/api/admin/terms`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
         body: JSON.stringify(termForm)
@@ -296,7 +325,7 @@ function Template({
         alert("✅ Term berhasil ditambahkan!");
         setShowTermForm(false);
         setTermForm({ title: "", content: "", category: "umum", version: 1, isActive: true });
-        const fetchRes = await fetch("http://localhost:5000/api/admin/terms", {
+        const fetchRes = await fetch(`${API_URL}/api/admin/terms`, {
           headers: { Authorization: "Bearer " + token }
         });
         const data = await fetchRes.json();
@@ -309,7 +338,7 @@ function Template({
     e.preventDefault();
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/terms/${editingTerm.id}`, {
+      const res = await fetch(`${API_URL}/api/admin/terms/${editingTerm.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
         body: JSON.stringify(termForm)
@@ -318,7 +347,7 @@ function Template({
         alert("✅ Term berhasil diupdate!");
         setEditingTerm(null);
         setTermForm({ title: "", content: "", category: "umum", version: 1, isActive: true });
-        const fetchRes = await fetch("http://localhost:5000/api/admin/terms", {
+        const fetchRes = await fetch(`${API_URL}/api/admin/terms`, {
           headers: { Authorization: "Bearer " + token }
         });
         const data = await fetchRes.json();
@@ -331,7 +360,7 @@ function Template({
     if (!confirm("Yakin ingin menghapus syarat ini?")) return;
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/terms/${id}`, {
+      const res = await fetch(`${API_URL}/api/admin/terms/${id}`, {
         method: "DELETE",
         headers: { Authorization: "Bearer " + token },
       });
@@ -351,7 +380,7 @@ function Template({
   const handleChangeUserRole = async (userId, newRole) => {
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/users/${userId}/role`, {
+      const res = await fetch(`${API_URL}/api/admin/users/${userId}/role`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
         body: JSON.stringify({ role: newRole })
@@ -371,7 +400,7 @@ function Template({
     if (!confirm("Yakin ingin menghapus user ini?")) return;
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/users/${userId}`, {
+      const res = await fetch(`${API_URL}/api/admin/users/${userId}`, {
         method: "DELETE",
         headers: { Authorization: "Bearer " + token },
       });
@@ -402,7 +431,7 @@ function Template({
     setUpdatingStatus(true);
     
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/orders/${orderId}/status`, {
+      const res = await fetch(`${API_URL}/api/admin/orders/${orderId}/status`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -1521,6 +1550,11 @@ const CartSidebar = () => {
                 </div>
                 <div style={{ padding: "20px" }}>
                   <div className="table-responsive">
+                    {orders.length === 0 ? (
+                      <div style={{ padding: "40px", textAlign: "center", color: "#999", background: "#F8F8F8", borderRadius: "12px" }}>
+                        📦 Belum ada order masuk
+                      </div>
+                    ) : (
                     <table style={{ width: "100%", background: "#FFFFFF", borderRadius: "10px", borderCollapse: "collapse", border: "1px solid #EEEEEE" }}>
                       <thead style={{ background: "#1A1A1A", color: "#FFFFFF", borderBottom: "1px solid #EEEEEE" }}>
                         <tr>
@@ -1549,6 +1583,7 @@ const CartSidebar = () => {
                         ))}
                       </tbody>
                     </table>
+                    )}
                   </div>
                  {/* MODAL DETAIL ORDER */}
 {showOrderDetail && (
@@ -1649,6 +1684,11 @@ const CartSidebar = () => {
                 </div>
                 <div style={{ padding: "20px" }}>
                   <div className="table-responsive">
+                    {users.length === 0 ? (
+                      <div style={{ padding: "40px", textAlign: "center", color: "#999", background: "#F8F8F8", borderRadius: "12px" }}>
+                        👥 Belum ada data user
+                      </div>
+                    ) : (
                     <table style={{ width: "100%", background: "#FFFFFF", borderRadius: "10px", borderCollapse: "collapse", border: "1px solid #EEEEEE" }}>
                       <thead style={{ background: "#1A1A1A", color: "#FFFFFF", borderBottom: "1px solid #EEEEEE" }}>
                         <tr>
@@ -1689,6 +1729,7 @@ const CartSidebar = () => {
                         ))}
                       </tbody>
                     </table>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1739,6 +1780,11 @@ const CartSidebar = () => {
                   )}
                   
                   <div className="table-responsive">
+                    {adminTerms.length === 0 ? (
+                      <div style={{ padding: "40px", textAlign: "center", color: "#999", background: "#F8F8F8", borderRadius: "12px" }}>
+                        ?? Belum ada syarat &amp; ketentuan
+                      </div>
+                    ) : (
                     <table style={{ width: "100%", background: "#FFFFFF", borderRadius: "10px", borderCollapse: "collapse", border: "1px solid #EEEEEE" }}>
                       <thead style={{ background: "#1A1A1A", color: "#FFFFFF", borderBottom: "1px solid #EEEEEE" }}>
                         <tr>
@@ -1766,6 +1812,7 @@ const CartSidebar = () => {
                         ))}
                       </tbody>
                     </table>
+                    )}
                   </div>
                 </div>
               </div>

@@ -8,6 +8,8 @@ import CheckoutPage from "./pages/CheckoutPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import SuccessPage from "./pages/SuccessPage";
 
+const API_URL = import.meta.env.VITE_API_URL || "https://toraja-backend.vercel.app";
+
 function App() {
   const [user, setUser] = useState(null);
   const [products, setProducts] = useState([]);
@@ -32,26 +34,40 @@ function App() {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const res = await fetch("http://localhost:5000/products");
+        const res = await fetch(`${API_URL}/products`);
         const data = await res.json();
+
+        // Pastikan data adalah array sebelum diproses
+        if (!Array.isArray(data)) {
+          console.error("❌ Data produk bukan array:", data);
+          setProducts([]);
+          setLoading(false);
+          return;
+        }
+
         setProducts(data);
         
         const sizesMap = {};
         for (const product of data) {
-          const sizesRes = await fetch(`http://localhost:5000/products/${product.id}`);
-          const productData = await sizesRes.json();
-          if (productData.sizes) {
-            sizesMap[product.id] = productData.sizes.map(s => ({
-              id: s.size.id,
-              name: s.size.name,
-              label: s.size.label,
-              stock: s.stock
-            }));
+          try {
+            const sizesRes = await fetch(`${API_URL}/products/${product.id}`);
+            const productData = await sizesRes.json();
+            if (productData.sizes) {
+              sizesMap[product.id] = productData.sizes.map(s => ({
+                id: s.size.id,
+                name: s.size.name,
+                label: s.size.label,
+                stock: s.stock
+              }));
+            }
+          } catch (sizeErr) {
+            console.warn(`Gagal fetch ukuran produk ${product.id}:`, sizeErr);
           }
         }
         setProductSizes(sizesMap);
       } catch (err) {
-        console.log("Error fetch products:", err);
+        console.error("❌ Error fetch products:", err);
+        setProducts([]);
       } finally {
         setLoading(false);
       }
@@ -123,7 +139,7 @@ function App() {
       return;
     }
     try {
-      const res = await fetch("http://localhost:5000/checkout", {
+      const res = await fetch(`${API_URL}/checkout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

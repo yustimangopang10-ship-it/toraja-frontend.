@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import Product from "./Product";
 
+const API_URL = import.meta.env.VITE_API_URL || "https://toraja-backend.vercel.app";
+
 function ProductList() {
   const [products, setProducts] = useState([]);
 
   // FETCH DATA DARI BACKEND
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch(`${API_URL}/products`)
       .then(res => res.json())
       .then(data => setProducts(data));
   }, []);
