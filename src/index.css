@@ -381,14 +381,13 @@ body {
   margin-top: 80px;
 }
 
-/* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
   .hero-title {
     font-size: 36px;
   }
   
   .section-title {
-    font-size: 28px;
+    font-size: 24px;
   }
   
   .hero-ornamen-left,
@@ -401,11 +400,41 @@ body {
   .hero-logo {
     width: 70px;
   }
+
+  /* Product Card Mobile - 2 columns */
+  .product-image {
+    height: 200px !important;
+  }
+
+  .product-title {
+    font-size: 13px;
+  }
+
+  .product-price {
+    font-size: 13px;
+  }
+
+  .btn-add-to-cart {
+    font-size: 11px;
+    padding: 8px 6px;
+    border-radius: 20px;
+  }
+
+  /* Section padding compact on mobile */
+  #products-section {
+    padding: 40px 0 !important;
+  }
+
+  #products-section .container {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
 }
 
 @media (max-width: 576px) {
   .hero-title {
-    font-size: 28px;
+    font-size: 26px;
+    letter-spacing: 2px;
   }
   
   .hero-subtitle {
@@ -414,12 +443,28 @@ body {
   }
   
   .hero-description {
-    font-size: 14px;
+    font-size: 13px;
   }
   
   .btn-hero-primary,
   .btn-hero-secondary {
     padding: 10px 24px;
     font-size: 12px;
+  }
+
+  .product-image {
+    height: 175px !important;
+  }
+
+  .product-title {
+    font-size: 12px !important;
+  }
+
+  .product-price {
+    font-size: 12px !important;
+  }
+
+  .section-title {
+    font-size: 20px;
   }
 }
