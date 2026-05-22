@@ -886,6 +886,59 @@ function Template({
               padding: 15px !important;
             }
           }
+          /* ===== MOBILE NAVBAR ===== */
+          @media (max-width: 991px) {
+            .navbar-collapse.show {
+              background: #FFFFFF;
+              border-top: 1px solid #EEEEEE;
+              padding: 12px 0 16px 0;
+              margin-top: 10px;
+              border-radius: 0 0 16px 16px;
+              box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            }
+            .navbar-collapse.show .nav-link {
+              text-align: center;
+              padding: 10px 0 !important;
+              font-size: 13px !important;
+              letter-spacing: 1.5px;
+              border-bottom: 1px solid #F5F5F5;
+              margin: 0 20px !important;
+            }
+            .navbar-collapse.show .nav-link:last-child {
+              border-bottom: none;
+            }
+            .mobile-user-badge {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+              background: #FAFAFA;
+              margin: 8px 16px;
+              padding: 10px 16px;
+              border-radius: 30px;
+              font-size: 13px;
+              color: #1A1A1A;
+              font-weight: 500;
+            }
+            .mobile-action-btns {
+              display: flex;
+              flex-direction: row;
+              gap: 8px;
+              padding: 8px 16px 0 16px;
+            }
+            .mobile-action-btns button {
+              flex: 1;
+              padding: 9px 8px !important;
+              font-size: 12px !important;
+              border-radius: 30px !important;
+            }
+            .desktop-only { display: none !important; }
+          }
+          @media (min-width: 992px) {
+            .mobile-user-badge { display: none !important; }
+            .mobile-action-btns { display: none !important; }
+            .desktop-only { display: flex !important; }
+          }
         `}</style>
 
         {/* NAVBAR */}
@@ -903,21 +956,23 @@ function Template({
             </button>
             <div className={`collapse navbar-collapse ${isNavbarOpen ? "show" : ""}`} id="navbarNav">
               <ul className="navbar-nav ms-auto align-items-center">
+                {/* NAV LINKS */}
                 <li className="nav-item"><a className="nav-link" href="#" onClick={() => { setCurrentPage("home"); setIsNavbarOpen(false); }}>BERANDA</a></li>
                 <li className="nav-item"><a className="nav-link" href="#" onClick={() => { setCurrentPage("terms"); setIsNavbarOpen(false); }}>SYARAT</a></li>
                 <li className="nav-item"><a className="nav-link" href="#" onClick={() => { setCurrentPage("myorders"); setIsNavbarOpen(false); }}>PESANANKU</a></li>
                 {isAdmin && <li className="nav-item"><a className="nav-link" href="#" onClick={() => { setCurrentPage("admin"); setIsNavbarOpen(false); }}>ADMIN</a></li>}
-                <li className="nav-item"><span className="nav-link" style={{ color: "#D4AF37" }}>👋 {user?.name}{isAdmin && "👑"}</span></li>
-                <li className="nav-item">
-                  <button
-                    onClick={() => setIsCartOpen(true)}
-                    className="btn ms-2"
-                    style={{ background: "transparent", border: "1.5px solid #D4AF37", color: "#D4AF37", borderRadius: "30px", padding: "6px 18px", fontSize: "13px", cursor: "pointer" }}
-                  >
+
+                {/* DESKTOP: user + cart + logout */}
+                <li className="nav-item desktop-only" style={{ alignItems: "center", gap: "8px" }}>
+                  <span className="nav-link" style={{ color: "#D4AF37" }}>👋 {user?.name}{isAdmin && "👑"}</span>
+                </li>
+                <li className="nav-item desktop-only">
+                  <button onClick={() => setIsCartOpen(true)} className="btn ms-2"
+                    style={{ background: "transparent", border: "1.5px solid #D4AF37", color: "#D4AF37", borderRadius: "30px", padding: "6px 18px", fontSize: "13px", cursor: "pointer" }}>
                     🛒 CART ({cart.length})
                   </button>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item desktop-only">
                   {user ? (
                     <button className="btn ms-2" style={{ background: "#1A1A1A", border: "none", color: "white", borderRadius: "30px", padding: "6px 20px", fontSize: "13px" }} onClick={logout}>LOGOUT</button>
                   ) : (
@@ -925,6 +980,28 @@ function Template({
                   )}
                 </li>
               </ul>
+
+              {/* MOBILE ONLY: user badge + action buttons */}
+              {user && (
+                <div className="mobile-user-badge">
+                  <span style={{ fontSize: "16px" }}>👋</span>
+                  <span style={{ color: "#1A1A1A", fontWeight: "600" }}>{user.name}</span>
+                  {isAdmin && <span style={{ fontSize: "14px" }}>👑</span>}
+                </div>
+              )}
+              <div className="mobile-action-btns">
+                <button
+                  onClick={() => { setIsCartOpen(true); setIsNavbarOpen(false); }}
+                  style={{ background: "transparent", border: "1.5px solid #D4AF37", color: "#D4AF37", cursor: "pointer" }}
+                >
+                  🛒 Keranjang ({cart.length})
+                </button>
+                {user ? (
+                  <button onClick={logout} style={{ background: "#1A1A1A", border: "none", color: "white", cursor: "pointer" }}>KELUAR</button>
+                ) : (
+                  <button onClick={() => { navigate("/login"); setIsNavbarOpen(false); }} style={{ background: "#1A1A1A", border: "none", color: "white", cursor: "pointer" }}>MASUK</button>
+                )}
+              </div>
             </div>
           </div>
         </nav>
