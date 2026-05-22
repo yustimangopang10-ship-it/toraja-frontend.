@@ -886,60 +886,114 @@ function Template({
               padding: 15px !important;
             }
           }
-          /* ===== MOBILE NAVBAR ===== */
-          @media (max-width: 991px) {
-            .navbar-collapse.show {
-              background: #FFFFFF;
-              border-top: 1px solid #EEEEEE;
-              padding: 12px 0 16px 0;
-              margin-top: 10px;
-              border-radius: 0 0 16px 16px;
-              box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            }
-            .navbar-collapse.show .nav-link {
-              text-align: center;
-              padding: 10px 0 !important;
-              font-size: 13px !important;
-              letter-spacing: 1.5px;
-              border-bottom: 1px solid #F5F5F5;
-              margin: 0 20px !important;
-            }
-            .navbar-collapse.show .nav-link:last-child {
-              border-bottom: none;
-            }
-            .mobile-user-badge {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 8px;
-              background: #FAFAFA;
-              margin: 8px 16px;
-              padding: 10px 16px;
-              border-radius: 30px;
-              font-size: 13px;
-              color: #1A1A1A;
-              font-weight: 500;
-            }
-            .mobile-action-btns {
-              display: flex;
-              flex-direction: row;
-              gap: 8px;
-              padding: 8px 16px 0 16px;
-            }
-            .mobile-action-btns button {
-              flex: 1;
-              padding: 9px 8px !important;
-              font-size: 12px !important;
-              border-radius: 30px !important;
-            }
-            .desktop-only { display: none !important; }
+          /* ===== MOBILE FULL-SCREEN MENU OVERLAY ===== */
+          .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #FFFFFF;
+            z-index: 2000;
+            flex-direction: column;
+            padding: 0;
+            overflow-y: auto;
+          }
+          .mobile-menu-overlay.open {
+            display: flex;
+          }
+          .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            border-bottom: 1px solid #EEEEEE;
+          }
+          .mobile-menu-close {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #1A1A1A;
+            padding: 4px;
+            line-height: 1;
+          }
+          .mobile-menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            border-bottom: 1px solid #EEEEEE;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: #1A1A1A;
+            cursor: pointer;
+            text-decoration: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            transition: background 0.15s ease;
+          }
+          .mobile-menu-item:hover { background: #FAFAFA; color: #1A1A1A; }
+          .mobile-menu-item.gold { color: #D4AF37; }
+          .mobile-menu-footer {
+            padding: 20px 24px;
+            margin-top: auto;
+          }
+          .mobile-menu-user {
+            font-size: 13px;
+            color: #999999;
+            margin-bottom: 12px;
+          }
+          .mobile-menu-btns {
+            display: flex;
+            gap: 10px;
+          }
+          .mobile-menu-btns button {
+            flex: 1;
+            padding: 11px 8px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 0.5px;
           }
           @media (min-width: 992px) {
-            .mobile-user-badge { display: none !important; }
-            .mobile-action-btns { display: none !important; }
-            .desktop-only { display: flex !important; }
+            .mobile-menu-overlay { display: none !important; }
+            .mobile-hambtn { display: none !important; }
+          }
+          @media (max-width: 991px) {
+            .desktop-only { display: none !important; }
           }
         `}</style>
+
+        {/* MOBILE FULL-SCREEN OVERLAY MENU */}
+        <div className={`mobile-menu-overlay ${isNavbarOpen ? "open" : ""}`}>
+          <div className="mobile-menu-header">
+            <button className="mobile-menu-close" onClick={() => setIsNavbarOpen(false)}>✕</button>
+            <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+              <button onClick={() => { setIsCartOpen(true); setIsNavbarOpen(false); }}
+                style={{ background: "none", border: "none", fontSize: "22px", cursor: "pointer" }}>🛒</button>
+            </div>
+          </div>
+
+          <div style={{ flex: 1 }}>
+            <button className="mobile-menu-item" onClick={() => { setCurrentPage("home"); setIsNavbarOpen(false); }}>BERANDA</button>
+            <button className="mobile-menu-item" onClick={() => { setCurrentPage("terms"); setIsNavbarOpen(false); }}>SYARAT</button>
+            <button className="mobile-menu-item" onClick={() => { setCurrentPage("myorders"); setIsNavbarOpen(false); }}>PESANANKU</button>
+            {isAdmin && <button className="mobile-menu-item gold" onClick={() => { setCurrentPage("admin"); setIsNavbarOpen(false); }}>ADMIN 👑</button>}
+          </div>
+
+          <div className="mobile-menu-footer">
+            {user && <p className="mobile-menu-user">👋 {user.name}{isAdmin ? " 👑" : ""}</p>}
+            <div className="mobile-menu-btns">
+              {user ? (
+                <button onClick={logout} style={{ background: "#1A1A1A", border: "none", color: "white" }}>KELUAR</button>
+              ) : (
+                <button onClick={() => { navigate("/login"); setIsNavbarOpen(false); }} style={{ background: "#1A1A1A", border: "none", color: "white" }}>MASUK</button>
+              )}
+            </div>
+          </div>
+        </div>
 
         {/* NAVBAR */}
         <nav className="navbar navbar-expand-lg navbar-premium fixed-top">
@@ -951,28 +1005,26 @@ function Template({
                 <span style={{ fontSize: "9px", display: "block", color: "#D4AF37", letterSpacing: "2px" }}>TORAJA CLOTHING</span>
               </div>
             </a>
-            <button className="navbar-toggler" type="button" onClick={() => setIsNavbarOpen(!isNavbarOpen)}>
+            {/* HAMBURGER - mobile only */}
+            <button className="mobile-hambtn navbar-toggler" type="button" onClick={() => setIsNavbarOpen(true)}
+              style={{ border: "none", background: "none", padding: "6px" }}>
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div className={`collapse navbar-collapse ${isNavbarOpen ? "show" : ""}`} id="navbarNav">
+            {/* DESKTOP NAV */}
+            <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav ms-auto align-items-center">
-                {/* NAV LINKS */}
-                <li className="nav-item"><a className="nav-link" href="#" onClick={() => { setCurrentPage("home"); setIsNavbarOpen(false); }}>BERANDA</a></li>
-                <li className="nav-item"><a className="nav-link" href="#" onClick={() => { setCurrentPage("terms"); setIsNavbarOpen(false); }}>SYARAT</a></li>
-                <li className="nav-item"><a className="nav-link" href="#" onClick={() => { setCurrentPage("myorders"); setIsNavbarOpen(false); }}>PESANANKU</a></li>
-                {isAdmin && <li className="nav-item"><a className="nav-link" href="#" onClick={() => { setCurrentPage("admin"); setIsNavbarOpen(false); }}>ADMIN</a></li>}
-
-                {/* DESKTOP: user + cart + logout */}
-                <li className="nav-item desktop-only" style={{ alignItems: "center", gap: "8px" }}>
-                  <span className="nav-link" style={{ color: "#D4AF37" }}>👋 {user?.name}{isAdmin && "👑"}</span>
-                </li>
-                <li className="nav-item desktop-only">
+                <li className="nav-item"><a className="nav-link" href="#" onClick={() => setCurrentPage("home")}>BERANDA</a></li>
+                <li className="nav-item"><a className="nav-link" href="#" onClick={() => setCurrentPage("terms")}>SYARAT</a></li>
+                <li className="nav-item"><a className="nav-link" href="#" onClick={() => setCurrentPage("myorders")}>PESANANKU</a></li>
+                {isAdmin && <li className="nav-item"><a className="nav-link" href="#" onClick={() => setCurrentPage("admin")}>ADMIN</a></li>}
+                <li className="nav-item"><span className="nav-link" style={{ color: "#D4AF37" }}>👋 {user?.name}{isAdmin && "👑"}</span></li>
+                <li className="nav-item">
                   <button onClick={() => setIsCartOpen(true)} className="btn ms-2"
                     style={{ background: "transparent", border: "1.5px solid #D4AF37", color: "#D4AF37", borderRadius: "30px", padding: "6px 18px", fontSize: "13px", cursor: "pointer" }}>
                     🛒 CART ({cart.length})
                   </button>
                 </li>
-                <li className="nav-item desktop-only">
+                <li className="nav-item">
                   {user ? (
                     <button className="btn ms-2" style={{ background: "#1A1A1A", border: "none", color: "white", borderRadius: "30px", padding: "6px 20px", fontSize: "13px" }} onClick={logout}>LOGOUT</button>
                   ) : (
@@ -980,28 +1032,6 @@ function Template({
                   )}
                 </li>
               </ul>
-
-              {/* MOBILE ONLY: user badge + action buttons */}
-              {user && (
-                <div className="mobile-user-badge">
-                  <span style={{ fontSize: "16px" }}>👋</span>
-                  <span style={{ color: "#1A1A1A", fontWeight: "600" }}>{user.name}</span>
-                  {isAdmin && <span style={{ fontSize: "14px" }}>👑</span>}
-                </div>
-              )}
-              <div className="mobile-action-btns">
-                <button
-                  onClick={() => { setIsCartOpen(true); setIsNavbarOpen(false); }}
-                  style={{ background: "transparent", border: "1.5px solid #D4AF37", color: "#D4AF37", cursor: "pointer" }}
-                >
-                  🛒 Keranjang ({cart.length})
-                </button>
-                {user ? (
-                  <button onClick={logout} style={{ background: "#1A1A1A", border: "none", color: "white", cursor: "pointer" }}>KELUAR</button>
-                ) : (
-                  <button onClick={() => { navigate("/login"); setIsNavbarOpen(false); }} style={{ background: "#1A1A1A", border: "none", color: "white", cursor: "pointer" }}>MASUK</button>
-                )}
-              </div>
             </div>
           </div>
         </nav>
