@@ -56,7 +56,7 @@ function SuccessPage() {
 
       <footer style={{ background: "#FAFAFA", padding: "40px 0 24px", borderTop: "1px solid #EEEEEE", marginTop: "40px" }}>
         <div className="container">
-          <p className="text-center" style={{ color: "#AAAAAA", fontSize: "12px", marginBottom: "4px" }}>© 2024 TO Mangla x TORAJA CLOTHING</p>
+          <p className="text-center" style={{ color: "#AAAAAA", fontSize: "12px", marginBottom: "4px" }}>© 2026 TO Mangla x TORAJA CLOTHING</p>
           <p className="text-center" style={{ color: "#BBBBBB", fontSize: "10px" }}>Mengangkat Budaya Toraja dalam setiap karya</p>
         </div>
       </footer>

@@ -1206,7 +1206,7 @@ function Template({
               <a href="https://www.tiktok.com/@to_manglaa" target="_blank" style={{ color: "#999999", margin: "0 12px", fontSize: "20px", textDecoration: "none" }}>🎵</a>
               <a href="https://wa.me/6285397853625" target="_blank" style={{ color: "#999999", margin: "0 12px", fontSize: "18px", textDecoration: "none" }}>💬</a>
             </div>
-            <p className="text-center" style={{ color: "#AAAAAA", fontSize: "12px", marginBottom: "4px" }}>© 2024 TO Mangla x TORAJA CLOTHING</p>
+            <p className="text-center" style={{ color: "#AAAAAA", fontSize: "12px", marginBottom: "4px" }}>© 2026 TO Mangla x TORAJA CLOTHING</p>
             <p className="text-center" style={{ color: "#BBBBBB", fontSize: "10px" }}>Mengangkat Budaya Toraja dalam setiap karya</p>
           </div>
         </footer>
